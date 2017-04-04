@@ -1,0 +1,3 @@
+[submodule "docker-merge"]
+	path = docker-merge
+	url = https://github.com/matsubara0507/docker-merge.git
