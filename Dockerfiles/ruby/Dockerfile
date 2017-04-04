@@ -1,8 +1,6 @@
 FROM openjdk:8
 
-MAINTAINER MATSUBARA Nobutada
-
-WORKDIR ~
+WORKDIR ${HOME}
 
 # install Ruby
 ## use rbenv
@@ -18,4 +16,4 @@ RUN cd ~/.rbenv \
     && src/configure \
     && make -C src
 RUN git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+RUN echo "export PATH=$HOME/.rbenv/bin:$PATH" >> ~/.bashrc

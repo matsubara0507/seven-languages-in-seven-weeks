@@ -1,6 +1,5 @@
 FROM openjdk:8
-MAINTAINER MATSUBARA Nobutada
-WORKDIR ~
+WORKDIR ${HOME}
 #  install Ruby
 # # use rbenv
 RUN apt-get update \
@@ -12,7 +11,7 @@ RUN cd ~/.rbenv \
  && src/configure \
  && make -C src
 RUN git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+RUN echo "export PATH=$HOME/.rbenv/bin:$PATH" >> ~/.bashrc
 #  Io
 RUN apt-get update \
  && apt-get install -y --no-install-recommends cmake g++ gcc libyajl-dev libpython3.4-dev libgmp-dev libmemcached-dev make \
@@ -33,12 +32,12 @@ RUN apt-get update \
 #  Scala
 # # with sbt
 ENV SCALA_VERSION="2.12.1"
-RUN curl -fsL http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C ~ \
- && mv ~/scala-$SCALA_VERSION ~/.scala \
- && echo 'export PATH=~/.scala/bin:$PATH' >> ~/.bashrc
+RUN curl -fsL "http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz" | tar xfz - -C ~ \
+ && mv "$HOME/scala-$SCALA_VERSION" "$HOME/.scala" \
+ && echo "export PATH=~/.scala/bin:$PATH" >> ~/.bashrc
 RUN apt-get update \
  && apt-get install -y --no-install-recommends apt-transport-https \
- && echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list \
+ && echo "deb https://dl.bintray.com/sbt/debian/" | tee -a /etc/apt/sources.list.d/sbt.list \
  && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 \
  && apt-get update \
  && apt-get install -y --no-install-recommends sbt \
@@ -47,7 +46,7 @@ RUN apt-get update \
  && sbt sbtVersion
 #  Erlang
 RUN echo "deb http://packages.erlang-solutions.com/debian jessie contrib" >> /etc/apt/sources.list \
- && wget http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc \
+ && curl http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc \
  && apt-key add erlang_solutions.asc \
  && apt-get update \
  && apt-get install -y --no-install-recommends erlang \
@@ -55,21 +54,21 @@ RUN echo "deb http://packages.erlang-solutions.com/debian jessie contrib" >> /et
  && rm -rf /var/lib/apt/lists/*
 #  Clojure
 # # use Leiningen
-RUN wget https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein \
+RUN curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein \
  && mv lein /usr/local/bin \
  && chmod u+x /usr/local/bin/lein
 ENV LEIN_ROOT="1"
 RUN lein
 #  Install Haskell
 # # with stack
-RUN echo 'deb http://ppa.launchpad.net/hvr/ghc/ubuntu trusty main' > /etc/apt/sources.list.d/ghc.list \
+RUN echo "deb http://ppa.launchpad.net/hvr/ghc/ubuntu trusty main" > /etc/apt/sources.list.d/ghc.list \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys F6F88286 \
  && apt-get update \
  && apt-get install -y --no-install-recommends ca-certificates g++ ghc-8.0.2 libtinfo-dev \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
 RUN apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 575159689BEFB442 \
- && echo 'deb http://download.fpcomplete.com/debian jessie main' | tee /etc/apt/sources.list.d/fpco.list \
+ && echo "deb http://download.fpcomplete.com/debian jessie main" | tee /etc/apt/sources.list.d/fpco.list \
  && apt-get update \
  && apt-get install -y --no-install-recommends stack \
  && apt-get clean \

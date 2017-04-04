@@ -1,8 +1,6 @@
 FROM openjdk:8
 
-MAINTAINER MATSUBARA Nobutada
-
-WORKDIR ~
+WORKDIR ${HOME}
 
 # Prolog
 
