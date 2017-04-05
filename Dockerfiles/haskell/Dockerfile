@@ -1,6 +1,7 @@
 FROM openjdk:8
 
-WORKDIR ${HOME}
+ENV HOME /root
+WORKDIR $HOME
 
 # Install Haskell
 ## with stack

@@ -1,5 +1,6 @@
 FROM openjdk:8
-WORKDIR ${HOME}
+ENV HOME="/root"
+WORKDIR $HOME
 #  install Ruby
 # # use rbenv
 RUN apt-get update \
