@@ -47,7 +47,7 @@ RUN apt-get update \
  && sbt sbtVersion
 #  Erlang
 RUN echo "deb http://packages.erlang-solutions.com/debian jessie contrib" >> /etc/apt/sources.list \
- && curl http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc \
+ && curl -O http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc \
  && apt-key add erlang_solutions.asc \
  && apt-get update \
  && apt-get install -y --no-install-recommends erlang \
@@ -55,7 +55,7 @@ RUN echo "deb http://packages.erlang-solutions.com/debian jessie contrib" >> /et
  && rm -rf /var/lib/apt/lists/*
 #  Clojure
 # # use Leiningen
-RUN curl https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein \
+RUN curl -O https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein \
  && mv lein /usr/local/bin \
  && chmod u+x /usr/local/bin/lein
 ENV LEIN_ROOT="1"
