@@ -12,7 +12,7 @@ RUN cd ~/.rbenv \
  && src/configure \
  && make -C src
 RUN git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build
-RUN echo "export PATH=$HOME/.rbenv/bin:$PATH" >> ~/.bashrc
+RUN echo 'export PATH=$HOME/.rbenv/bin:$PATH' >> ~/.bashrc
 #  Io
 RUN apt-get update \
  && apt-get install -y --no-install-recommends cmake g++ gcc libyajl-dev libpython3.4-dev libgmp-dev libmemcached-dev make \
@@ -35,7 +35,7 @@ RUN apt-get update \
 ENV SCALA_VERSION="2.12.1"
 RUN curl -fsL "http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz" | tar xfz - -C ~ \
  && mv "$HOME/scala-$SCALA_VERSION" "$HOME/.scala" \
- && echo "export PATH=~/.scala/bin:$PATH" >> ~/.bashrc
+ && echo 'export PATH=~/.scala/bin:$PATH' >> ~/.bashrc
 RUN apt-get update \
  && apt-get install -y --no-install-recommends apt-transport-https \
  && echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list \

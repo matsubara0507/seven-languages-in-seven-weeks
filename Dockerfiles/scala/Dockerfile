@@ -10,7 +10,7 @@ ENV SCALA_VERSION 2.12.1
 
 RUN curl -fsL "http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz" | tar xfz - -C ~ \
     && mv "$HOME/scala-$SCALA_VERSION" "$HOME/.scala" \
-    && echo "export PATH=~/.scala/bin:$PATH" >> ~/.bashrc
+    && echo 'export PATH=~/.scala/bin:$PATH' >> ~/.bashrc
 RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-transport-https \
     && echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list \
