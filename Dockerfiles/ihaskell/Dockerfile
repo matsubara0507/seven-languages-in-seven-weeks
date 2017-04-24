@@ -2,6 +2,8 @@ FROM matsubara0507/nine-lang-docker:latest
 
 RUN pip install ipython jupyter
 
+## ihaskell
+
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libatlas-dev \
     libblas-dev \
