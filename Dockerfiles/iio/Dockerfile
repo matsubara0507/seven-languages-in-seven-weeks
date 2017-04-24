@@ -4,4 +4,4 @@ RUN pip install ipython jupyter
 
 RUN git clone --depth 1 https://github.com/matsubara0507/iio.git /root/iio
 WORKDIR /root/iio
-RUN jupyter kernelspec install iokernel
+RUN cd kernels && jupyter kernelspec install io
