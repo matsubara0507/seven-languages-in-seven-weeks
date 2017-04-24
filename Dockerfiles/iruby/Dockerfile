@@ -2,6 +2,8 @@ FROM matsubara0507/nine-lang-docker:latest
 
 RUN pip install ipython jupyter
 
+## iruby
+
 ENV RUBY_VERSION 2.4.1
 
 WORKDIR /root
