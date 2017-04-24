@@ -37,7 +37,8 @@ RUN curl -L -o coursier https://git.io/vgvpD \
  && chmod +x coursier \
  && mv coursier /usr/local/bin/
 ADD jupyter-scala /root/iscala
-RUN ./jupyter-scala
+RUN chmod +x jupyter-scala \
+ && ./jupyter-scala
 # # ierlang
 RUN git clone --depth 1 https://github.com/matsubara0507/simple-ierlang.git /root/ierlang
 WORKDIR /root/ierlang
