@@ -33,18 +33,13 @@ RUN apt-get update \
 #  Scala
 # # with sbt
 ENV SCALA_VERSION="2.12.1"
+ENV SBT_VERSION="0.13.15"
 RUN curl -fsL "http://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz" | tar xfz - -C ~ \
- && mv "$HOME/scala-$SCALA_VERSION" "$HOME/.scala" \
- && echo 'export PATH=~/.scala/bin:$PATH' >> ~/.bashrc
-RUN apt-get update \
- && apt-get install -y --no-install-recommends apt-transport-https \
- && echo "deb https://dl.bintray.com/sbt/debian /" | tee -a /etc/apt/sources.list.d/sbt.list \
- && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2EE0EA64E40A89B84B2DF73499E82A75642AC823 \
- && apt-get update \
- && apt-get install -y --no-install-recommends sbt \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/* \
- && sbt sbtVersion
+ && mv "$HOME/scala-$SCALA_VERSION" "$HOME/.scala"
+RUN curl -fsL "http://downloads.typesafe.com/sbt/$SBT_VERSION/sbt-$SBT_VERSION.tgz" | tar xfz - -C ~ \
+ && mv "$HOME/sbt" "$HOME/.sbt"
+ENV PATH="$HOME/.sbt/bin:$HOME/.scala/bin:$PATH"
+RUN sbt sbtVersion
 #  Erlang
 RUN echo "deb http://packages.erlang-solutions.com/debian jessie contrib" >> /etc/apt/sources.list \
  && curl -O http://packages.erlang-solutions.com/ubuntu/erlang_solutions.asc \
