@@ -19,3 +19,7 @@ WORKDIR /root/IHaskell
 RUN stack install gtk2hs-buildtools
 RUN stack install --fast
 RUN stack exec ihaskell -- install
+
+WORKDIR /root/notebook
+
+CMD ["jupyter", "notebook", "--allow-root", "--ip='*'"]
